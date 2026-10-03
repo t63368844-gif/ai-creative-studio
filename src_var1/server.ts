@@ -8,8 +8,6 @@ import { renderPdf } from "./pdf";
 import { planContent } from "./content";
 import { artDirect } from "./artdirector";
 import { buildCacheKey, cacheLookup, cacheStore } from "./cache";
-import { renderDeck } from "./deck.js";
-import { LIBRARIES, pickLibraryImages } from "./library";
 
 export { CreativeStudio };
 
@@ -61,10 +59,8 @@ export default {
     // POST /pdf → PDF only
     if (request.method === "POST") {
       const isPdf = url.pathname === "/pdf";
-      const isDeck = url.pathname === "/deck";
-
       const isHtml = url.pathname === "/html";
-      const format = isPdf ? "pdf" : isHtml ? "html" : isDeck ? "deck" : "both";
+      const format = isPdf ? "pdf" : isHtml ? "html" : "both";
 
       try {
         const body = await request.json() as {
@@ -177,25 +173,6 @@ export default {
         }
 
         // both — return HTML
-        // Render deck format
-        if (format === "deck") {
-          const libName = (body as any).library as string | undefined;
-          if (libName && LIBRARIES[libName]) {
-            const n = pickLibraryImages(content, libName);
-            console.log("library images assigned:", n, "of", (content.slides || []).length, "| lib:", libName);
-          }
-          const deckHtml = renderDeck(content, brand);
-          const key = `deck-${Date.now()}`;
-          await env.CACHE.put(key, deckHtml, { expirationTtl: 86400 });
-          return new Response(deckHtml, {
-            headers: { 
-              "content-type": "text/html; charset=utf-8", 
-              "x-deck-key": key,
-              ...CORS_HEADERS 
-            },
-          });
-        }
-
         return new Response(html, {
           status: 200,
           headers: { "Content-Type": "text/html; charset=utf-8", ...CORS_HEADERS },
@@ -210,14 +187,6 @@ export default {
     }
 
     // GET /report/<cacheKey> → published spec + checklist
-    
-    if (request.method === "GET" && url.pathname.startsWith("/deck/")) {
-      const key = url.pathname.slice("/deck/".length);
-      const html = await ctx.env.CACHE.get(key);
-      if (!html) return new Response("Not found", { status: 404 });
-      return new Response(html, { headers: { "content-type": "text/html; charset=utf-8" } });
-    }
-
     if (request.method === "GET" && url.pathname.startsWith("/report/")) {
       const key = url.pathname.slice("/report/".length);
       const data = await env.CACHE.get("report:" + key, "json").catch(() => null);

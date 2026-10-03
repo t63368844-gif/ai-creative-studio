@@ -27,10 +27,6 @@ export interface SlideContent {
   illustration?: string;
   /** vivid one-sentence brief for the image model */
   imagePrompt?: string;
-  /** растровая иллюстрация из библиотеки, напр. /vance/06-caravan-road.png */
-  imageUrl?: string;
-  /** backdrop = во весь экран, sticker = в панель текста */
-  imageMode?: "backdrop" | "sticker";
   /** optional numeric dataset for chart rendering */
   chart?: {
     type: "bar" | "line" | "pie";

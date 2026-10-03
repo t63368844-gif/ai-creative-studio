@@ -1,7 +1,7 @@
 // src/html.ts — самодостаточный мобильный движок дека (без CDN) + print-PDF 1280x720
 import type { BrandPreset, ContentPayload } from "./types";
 import { renderChart } from "./charts";
-import { getIllustration } from "./svg";
+import { renderIllustration } from "./svg";
 
 function esc(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -14,7 +14,7 @@ export function renderHtml(content: ContentPayload, brand: BrandPreset): string 
   const artBand = (s: any): string => {
     if (s.imageUrl && (s.imageMode ?? "backdrop") === "backdrop")
       return `<div class="art" style="background-image:url('${esc(s.imageUrl)}')"></div>`;
-    return `<div class="art svgart">${getIllustration(s.illustration || "star", brand)}</div>`;
+    return `<div class="art svgart">${renderIllustration(s.illustration || "star", brand)}</div>`;
   };
 
   const titleSlide = `

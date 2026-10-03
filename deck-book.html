@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Древние караванные пути</title>
+<style>
+:root { --ink:#fdf6e3; --paper:#2c2c2c; --gold:#c0392b; --sea:#8b4513; --panel:linear-gradient(180deg, rgba(255,252,245,.96), rgba(255,250,240,.99)); --chip:rgba(255,252,245,.85); --tagbg:rgba(11,13,22,.85); --tagink:#f4ead8; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { height:100%; background:var(--ink); color:var(--paper); font-family:Georgia,"Times New Roman",serif; overflow:hidden; }
+.slide { position:fixed; inset:0; display:none; flex-direction:column; }
+.slide.active { display:flex; }
+.art { flex:0 0 46vh; display:flex; align-items:center; justify-content:center; border-bottom:2px solid var(--gold); background:rgba(128,128,128,.08); overflow:hidden; }
+.art svg { width:min(92%, 560px); height:auto; max-height:100%; }
+.imgart { background-size:contain; background-position:center; background-repeat:no-repeat; background-color:var(--ink); }
+.txt { flex:1; padding:18px 20px calc(84px + env(safe-area-inset-bottom)); overflow-y:auto; background:var(--panel); }
+.tag { display:inline-block; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--tagink); background:var(--tagbg); padding:3px 10px; border-radius:12px; margin-bottom:10px; }
+h2 { color:var(--gold); font-size:clamp(1.35rem,5.4vw,2.3rem); line-height:1.2; margin-bottom:.5em; }
+p { font-size:clamp(1.02rem,3.9vw,1.3rem); line-height:1.62; }
+.voyage-no { position:fixed; top:calc(10px + env(safe-area-inset-top)); left:14px; font-size:.85rem; color:var(--gold); background:var(--chip); padding:3px 9px; border-radius:10px; z-index:5; }
+.counter { position:fixed; top:calc(10px + env(safe-area-inset-top)); right:14px; font-size:.85rem; color:var(--paper); background:var(--chip); padding:4px 10px; border-radius:12px; z-index:5; }
+.nav { position:fixed; bottom:calc(14px + env(safe-area-inset-bottom)); right:14px; display:flex; gap:10px; z-index:9; }
+.nav button { width:54px; height:54px; border-radius:50%; border:1px solid var(--gold); background:var(--chip); color:var(--gold); font-size:1.5rem; }
+.txt ul { list-style:none; margin-top:10px; }
+.txt li { font-size:clamp(.95rem,3.6vw,1.18rem); line-height:1.5; margin-bottom:9px; padding-left:22px; position:relative; }
+.txt li::before { content:"—"; position:absolute; left:0; color:var(--gold); }
+.compact .art { flex-basis:32vh; }
+.compact h2 { font-size:clamp(1.1rem,4.2vw,1.6rem); margin-bottom:.35em; }
+.compact .txt li { font-size:clamp(.8rem,2.9vw,1rem); line-height:1.35; margin-bottom:6px; }
+@media (min-width:900px) and (orientation:landscape) {
+  .art { position:absolute; inset:0; flex:none; z-index:0; border:none; }
+  .imgart { background-size:cover; }
+  .txt { position:relative; z-index:1; max-width:660px; margin:auto 6vw; border-left:4px solid var(--gold); border-radius:6px; padding:26px 32px; overflow:visible; }
+}
+</style>
+</head>
+<body>
+
+<div class="slide">
+<span class="voyage-no">1</span>
+<div class="art"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="slide-illustration" data-keyword="globe" preserveAspectRatio="xMidYMid meet">
+    <circle cx="100" cy="100" r="60" fill="#3c2f2f" stroke="#2c2c2c" stroke-width="2"/>
+    <ellipse cx="100" cy="100" rx="60" ry="25" fill="none" stroke="#2c2c2c" stroke-width="1.5"/>
+    <ellipse cx="100" cy="100" rx="25" ry="60" fill="none" stroke="#2c2c2c" stroke-width="1.5"/>
+    <line x1="40" y1="100" x2="160" y2="100" stroke="#2c2c2c" stroke-width="1.5"/>
+    <circle cx="120" cy="80" r="8" fill="#c0392b" opacity="0.7"/>
+    <circle cx="75" cy="115" r="6" fill="#8b4513" opacity="0.7"/>
+  </svg></div>
+<div class="txt">
+<span class="tag">book</span>
+<h2>Введение</h2>
+
+<ul><li>Древние караванные пути сыграли значительную роль в развитии торговли.</li><li>Они соединяли Восток и Запад.</li><li>По караванным путям распространялись товары и идеи.</li></ul>
+</div>
+</div>
+
+<div class="slide">
+<span class="voyage-no">2</span>
+<div class="art"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="slide-illustration" data-keyword="rocket" preserveAspectRatio="xMidYMid meet">
+    <defs><linearGradient id="rg-3c2f2f" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3c2f2f"/><stop offset="100%" stop-color="#8b4513"/>
+    </linearGradient></defs>
+    <path d="M100 20 C120 40, 130 70, 120 110 L80 110 C70 70, 80 40, 100 20 Z" fill="url(#rg-3c2f2f)" stroke="#2c2c2c" stroke-width="1.5"/>
+    <circle cx="100" cy="70" r="12" fill="#c0392b" stroke="#2c2c2c" stroke-width="1.5"/>
+    <path d="M80 110 L65 140 L80 130 Z" fill="#8b4513" stroke="#2c2c2c" stroke-width="1"/>
+    <path d="M120 110 L135 140 L120 130 Z" fill="#8b4513" stroke="#2c2c2c" stroke-width="1"/>
+    <path d="M85 125 Q100 160, 115 125" fill="none" stroke="#c0392b" stroke-width="2"/>
+    <path d="M90 135 Q100 165, 110 135" fill="none" stroke="#c0392b" stroke-width="1.5" opacity="0.6"/>
+  </svg></div>
+<div class="txt">
+<span class="tag">book</span>
+<h2>Шелковый путь</h2>
+
+<ul><li>Шелковый путь был одним из наиболее важных караванных путей.</li><li>Он соединял Китай и Средиземноморье.</li><li>По Шелковому пути распространялись шелк и другие товары.</li></ul>
+</div>
+</div>
+
+<div class="slide">
+<span class="voyage-no">3</span>
+<div class="art"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="slide-illustration" data-keyword="heart" preserveAspectRatio="xMidYMid meet">
+    <path d="M100 170 C60 140, 30 110, 30 80 C30 55, 50 40, 70 40 C85 40, 95 50, 100 60 C105 50, 115 40, 130 40 C150 40, 170 55, 170 80 C170 110, 140 140, 100 170 Z"
+      fill="#3c2f2f" stroke="#2c2c2c" stroke-width="2"/>
+    <path d="M100 170 C70 145, 50 120, 50 95 C50 75, 60 65, 75 65" fill="none" stroke="#c0392b" stroke-width="2" opacity="0.5"/>
+  </svg></div>
+<div class="txt">
+<span class="tag">book</span>
+<h2>Другие караванные пути</h2>
+
+<ul><li>Другие караванные пути включали Путь специй и Путь пряностей.</li><li>Эти пути также сыграли значительную роль в развитии торговли.</li><li>По ним распространялись различные товары и идеи.</li></ul>
+</div>
+</div>
+
+<div class="slide">
+<span class="voyage-no">4</span>
+<div class="art"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="slide-illustration" data-keyword="book" preserveAspectRatio="xMidYMid meet">
+    <path d="M40 40 L100 55 L160 40 L160 160 L100 170 L40 160 Z" fill="#3c2f2f" stroke="#2c2c2c" stroke-width="2"/>
+    <path d="M100 55 L100 170" fill="none" stroke="#2c2c2c" stroke-width="1.5"/>
+    <path d="M55 60 L90 68 M55 80 L90 88 M55 100 L90 108" stroke="#7a6a5a" stroke-width="1.5"/>
+    <path d="M110 68 L145 60 M110 88 L145 80 M110 108 L145 100" stroke="#7a6a5a" stroke-width="1.5"/>
+  </svg></div>
+<div class="txt">
+<span class="tag">book</span>
+<h2>Значение караванных путей</h2>
+
+<ul><li>Караванные пути сыграли значительную роль в развитии цивилизаций.</li><li>Они способствовали культурному обмену и распространению идей.</li><li>Караванные пути также способствовали развитию торговли и экономики.</li></ul>
+</div>
+</div>
+
+<div class="slide">
+<span class="voyage-no">5</span>
+<div class="art"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="slide-illustration" data-keyword="guitar" preserveAspectRatio="xMidYMid meet">
+    <ellipse cx="130" cy="130" rx="40" ry="50" fill="#3c2f2f" stroke="#2c2c2c" stroke-width="2"/>
+    <circle cx="130" cy="130" r="12" fill="undefined" stroke="#2c2c2c" stroke-width="1.5"/>
+    <rect x="80" y="30" width="8" height="100" fill="#8b4513" stroke="#2c2c2c" stroke-width="1" transform="rotate(15 84 80)"/>
+    <rect x="75" y="25" width="18" height="12" fill="#c0392b" stroke="#2c2c2c" stroke-width="1" transform="rotate(15 84 31)"/>
+  </svg></div>
+<div class="txt">
+<span class="tag">book</span>
+<h2>Наследие караванных путей</h2>
+
+<ul><li>Караванные пути оставили после себя богатое культурное наследие.</li><li>Они способствовали развитию многих цивилизаций.</li><li>Караванные пути также способствовали распространению идей и товаров.</li></ul>
+</div>
+</div>
+
+<div class="slide">
+<span class="voyage-no">6</span>
+<div class="art"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="slide-illustration" data-keyword="star" preserveAspectRatio="xMidYMid meet">
+    <polygon points="100,20 120,75 180,80 135,115 150,170 100,140 50,170 65,115 20,80 80,75"
+      fill="#c0392b" stroke="#2c2c2c" stroke-width="2"/>
+    <polygon points="100,50 112,80 145,83 120,105 130,140 100,120 70,140 80,105 55,83 88,80"
+      fill="#3c2f2f" opacity="0.4"/>
+  </svg></div>
+<div class="txt">
+<span class="tag">book</span>
+<h2>Заключение</h2>
+
+<ul><li>Древние караванные пути сыграли значительную роль в развитии торговли и цивилизаций.</li><li>Они способствовали культурному обмену и распространению идей.</li><li>Караванные пути также способствовали развитию экономики.</li></ul>
+</div>
+</div>
+
+<div class="counter" id="ctr"></div>
+<div class="nav"><button id="prev" aria-label="назад">‹</button><button id="next" aria-label="вперёд">›</button></div>
+
+<script>
+var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+var i = 0;
+function show(n) {
+  i = (n + slides.length) % slides.length;
+  for (var k = 0; k < slides.length; k++) slides[k].classList.toggle('active', k === i);
+  document.getElementById('ctr').textContent = (i + 1) + ' / ' + slides.length;
+}
+var h = parseInt((location.hash || '').replace('#', ''), 10);
+show(isNaN(h) ? 0 : h - 1);
+document.getElementById('next').onclick = function () { show(i + 1); };
+document.getElementById('prev').onclick = function () { show(i - 1); };
+var x0 = null;
+document.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; }, { passive: true });
+document.addEventListener('touchend', function (e) {
+  if (x0 === null) return;
+  var dx = e.changedTouches[0].clientX - x0;
+  if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+  x0 = null;
+}, { passive: true });
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowRight' || e.key === ' ') show(i + 1);
+  if (e.key === 'ArrowLeft') show(i - 1);
+});
+</script>
+</body>
+</html>
