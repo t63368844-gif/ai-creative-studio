@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Тшаи: седьмое плавание Адама Рита</title>
+<style>
+:root { --paper:#f4ead8; --gold:#c9a227; --sea:#0e6f8c; --ink:#0b0d16; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { height:100%; background:var(--ink); color:var(--paper); font-family:Georgia,"Times New Roman",serif; overflow:hidden; }
+.slide { position:fixed; inset:0; display:none; flex-direction:column; }
+.slide.active { display:flex; }
+.art { flex:0 0 52vh; background-size:contain; background-position:center; background-repeat:no-repeat; background-color:#0b0d16; border-bottom:2px solid var(--gold); }
+.txt { flex:1; padding:18px 20px calc(84px + env(safe-area-inset-bottom)); overflow-y:auto; background:linear-gradient(180deg, rgba(11,13,22,.94), rgba(11,13,22,.99)); }
+.tag { display:inline-block; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--sea); background:rgba(244,234,216,.92); padding:3px 10px; border-radius:12px; margin-bottom:10px; }
+h2 { color:var(--gold); font-size:clamp(1.35rem, 5.4vw, 2.3rem); line-height:1.2; margin-bottom:.5em; }
+p { font-size:clamp(1.02rem, 3.9vw, 1.3rem); line-height:1.62; }
+.voyage-no { position:fixed; top:calc(10px + env(safe-area-inset-top)); left:14px; font-size:.85rem; color:var(--gold); letter-spacing:.25em; text-shadow:0 1px 6px #000; z-index:5; }
+.counter { position:fixed; top:calc(10px + env(safe-area-inset-top)); right:14px; font-size:.85rem; color:var(--paper); background:rgba(11,13,22,.65); padding:4px 10px; border-radius:12px; z-index:5; }
+.nav { position:fixed; bottom:calc(14px + env(safe-area-inset-bottom)); right:14px; display:flex; gap:10px; z-index:9; }
+.nav button { width:54px; height:54px; border-radius:50%; border:1px solid var(--gold); background:rgba(11,13,22,.72); color:var(--gold); font-size:1.5rem; }
+.mosaic { flex:0 0 52vh; display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; padding:6px; background:var(--ink); }
+.mosaic img { width:100%; height:100%; object-fit:cover; border:1px solid var(--gold); border-radius:4px; }
+@media (min-width: 900px) and (orientation: landscape) {
+  .art { position:absolute; inset:0; flex:none; z-index:0; border:none; }
+  .mosaic { display:none; }
+  .txt { position:relative; z-index:1; max-width:660px; margin:auto 6vw; background:rgba(11,13,22,.82); border-left:4px solid var(--gold); border-radius:6px; padding:26px 32px; overflow:visible; }
+}
+
+.txt ul { list-style:none; margin-top:10px; }
+.txt li { font-size:clamp(.95rem,3.6vw,1.18rem); line-height:1.5; margin-bottom:9px; padding-left:22px; position:relative; }
+.txt li::before { content:"—"; position:absolute; left:0; color:var(--gold); }
+
+.compact .art { flex-basis: 32vh; }
+.compact .tag { font-size:.62rem; margin-bottom:6px; }
+.compact h2 { font-size:clamp(1.1rem,4.2vw,1.6rem); margin-bottom:.35em; }
+.compact .txt { padding-top:12px; }
+.compact .txt li { font-size:clamp(.8rem,2.9vw,1rem); line-height:1.35; margin-bottom:6px; }
+.compact .txt p { font-size:clamp(.82rem,3vw,1.02rem); line-height:1.45; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<div class="slide"><div class="art" style="background-image:url('/vance/16-mask-bazaar.png')"></div><div class="txt"><span class="tag">Джек Вэнс • Планета приключений • 1968–1970</span><h2>Тшаи: седьмое плавание Адама Рита</h2><p>Планета как потерянное путешествие Синдбада-морехода: четыре древние расы, один потерпевший крушение человек и базар, где истории взвешивают, как аметисты.</p></div></div>
+
+<div class="slide"><span class="voyage-no">ПЛАВАНИЕ I</span><div class="art" style="background-image:url('/vance/08-reith-scouts.png')"></div><div class="txt"><span class="tag">Синдбад: остров-кит • прибытие через крушение</span><h2>Земля, которая не земля</h2><p>Остров оказывается китом, а планета — не планетой, а караван-сараем четырёх цивилизаций. Путешественник ошибается в самом грунте под ногами.</p></div></div>
+
+<div class="slide"><span class="voyage-no">ПЛАВАНИЕ II</span><div class="art" style="background-image:url('/vance/04-pnir-bazaar.png')"></div><div class="txt"><span class="tag">Синдбад: долина алмазов • раса: пниры</span><h2>Алмазы на мясе</h2><p>Алмазы липнут к мясу, и птица выносит купца из долины. На Тшаи богатство всегда добывают хитростью — и всегда оценивают на базаре пниров.</p></div></div>
+
+<div class="slide"><span class="voyage-no">ПЛАВАНИЕ III</span><div class="art" style="background-image:url('/vance/03-dirdir-corridor.png')"></div><div class="txt"><span class="tag">Синдбад: великаны-людоеды • раса: дирдиры</span><h2>Гостеприимство как охота</h2><p>Великан съедает гостей по одному в ночь; дирдиры выезжают на людей, как на дичь. Гостеприимство и охота — один обычай, если смотреть с разных сторон костра.</p></div></div>
+
+<div class="slide"><span class="voyage-no">ПЛАВАНИЕ IV</span><div class="art" style="background-image:url('/vance/12-tschai-canals.png')"></div><div class="txt"><span class="tag">Синдбад: город чужих обычаев • раса: ванги</span><h2>Город, который не отпускает</h2><p>Город женит путешественника на своих обычаях и не выпускает: каналы, гондолы, дворцы — прекрасные, как ловушка.</p></div></div>
+
+<div class="slide"><span class="voyage-no">ПЛАВАНИЕ V</span><div class="art" style="background-image:url('/vance/13-crashed-ship-market.png')"></div><div class="txt"><span class="tag">Синдбад: гибель корабля и Старец Морской</span><h2>Седок на плечах</h2><p>Пятое плавание начинается крушением: рухи мстят за разбитое яйцо. Выживший узнаёт, каково это — носить седока на собственной шее.</p></div></div>
+
+<div class="slide compact"><span class="voyage-no">ПРИСТРОЙКА</span><div class="art" style="background-image:url('/vance/13-crashed-ship-market.png')"></div><div class="txt"><span class="tag">Читательское расследование • вещдок 13</span><h2>Пять вопросов к рухнувшему кораблю</h2><ul>
+<li>Обшивка выгорела: баллон с углекислотой вскрыли, чтобы заморозить челнок на снижении?</li>
+<li>Или атмосфера разрежена — посадку «утяжеляли» газом, а винты обломаны при касании?</li>
+<li>Или обшивку растащили на сувениры: базар рядом, а базар торгует чудесами.</li>
+<li>Ни пожара, ни инея — только кристалл: застывший лёд крушения?</li>
+<li>Двойной трек в небе: след ракеты часка и след бота — убийца и жертва одним росчерком.</li>
+</ul><p>Версия поля: челнок просто замёрз, обледенел и раскололся при жёсткой посадке — единственная ошибка пилота была в парковке. </p><p>Сокол на плече охотника — единственный свидетель, видевший всё сверху.</p></div></div>
+
+<div class="slide"><span class="voyage-no">ПЛАВАНИЕ VI</span><div class="art" style="background-image:url('/vance/01-chasch-council.png')"></div><div class="txt"><span class="tag">Синдбад: дары царю царей • раса: часка</span><h2>Путешествие становится посольством</h2><p>Подземная река выносит к Серендибу, и царь шлёт дары халифу: любое плавание кончается посольством между цивилизациями — даже если одна из них об этом не знает.</p></div></div>
+
+<div class="slide"><span class="voyage-no">ПЛАВАНИЕ VII</span><div class="art" style="background-image:url('/vance/06-caravan-road.png')"></div><div class="txt"><span class="tag">Синдбад: кладбище слонов • тропа зверей</span><h2>Дорога, которую знают звери</h2><p>Богатство находят не силой, а тропой: иди за караваном животных — и он сам приведёт к сокровищу. Черепаховый караван знает Тшаи лучше карт.</p></div></div>
+
+<div class="slide"><div class="art" style="background-image:url('/vance/07-cliff-market.png')"></div><div class="txt"><span class="tag">Два семёрки • купец и адмирал</span><h2>Синдбад и Чжэн Хэ: один океан, одно число</h2><p>Семь плаваний купца — удача и чудовища без дат; семь плаваний адмирала — дань и даты (1405–1433). Общее у них — океан и число: семь это полнота мира, а не биография. И пятое плавание адмирала везло домой цилиня — чудо на шее флота, как седок на плечах.</p></div></div>
+
+<div class="slide"><span class="voyage-no">ПРИСТРОЙКА</span><div class="art" style="background-image:url('/vance/02-chasch-guards.png')"></div><div class="txt"><span class="tag">Хаггард • The Holy Flower • 1914</span><h2>Орхидея-божество и её хранитель</h2><p>Аллан Куотермейн идёт за золотой орхидеей колоссальных размеров. Викторианская «орхидейная лихорадка» превратила цветок в божество, а его охрану — в гориллу Хоу-Хоу. Вэнс переносит эту схему на Тшаи: ритуальные расы-хранители, священные пространства, цветок, за который платят жизнью.</p></div></div>
+
+<div class="slide"><div class="art" style="background-image:url('/vance/15-wankh-palanquin.png')"></div><div class="txt"><span class="tag">Рамка • два Синдбада</span><h2>Плавание, рассказанное из-под носилок</h2><p>Синдбад-мореход рассказывает плавания Синдбаду-носильщику. На Тшаи носильщик молчит: он и несёт рассказчика. Пятое путешествие здесь звучит не сверху, а снизу — с высоты чужих плеч.</p></div></div>
+
+<div class="slide"><div class="art" style="background-image:url('/vance/09-reith-companion.png')"></div><div class="txt"><span class="tag">Пятая раса</span><h2>Люди Тшаи: молчаливое большинство</h2><p>Люди здесь — пятая, тихая раса: потомки крушений, слуги, носильщики, кочевники. Адам Рит — оба Синдбада сразу: и мореход, и носильщик.</p></div></div>
+
+<div class="slide"><div class="art" style="background-image:url('/vance/05-explorer-landing.png')"></div><div class="txt"><span class="tag">Корабль</span><h2>«Explorer»: плавание, пришедшее извне</h2><p>Каждое плавание начинается крушением; это началось посадкой, которая стала крушением. Земной корабль на известняковой платформе — единственная вещь на Тшаи, сделанная не Тшаи.</p></div></div>
+
+<div class="slide"><span class="voyage-no">ПРИСТРОЙКИ</span><div class="mosaic"><img src="/vance/02-chasch-guards.png" alt="часка-стражи"/><img src="/vance/10-bridge-city.png" alt="город мостов"/><img src="/vance/14-balcony-airships.png" alt="терраса с дирижаблями"/></div><div class="txt"><span class="tag">Невошедшие комнаты</span><h2>Караван-сарай растёт пристройками</h2><p>Стражи, мосты, террасы. Цикл плаваний растёт пристройками — как сарай, как «Ночи», как этот дек.</p></div></div>
+
+<div class="slide"><div class="art" style="background-image:url('/vance/11-pergolus.png')"></div><div class="txt"><span class="tag">Финал</span><h2>«Но утро застигло Шахерезаду — и она прекратила дозволенные речи»</h2><p>Тшаи ждёт своего рассказчика. Возможно — вас.</p></div></div>
+
+<div class="counter" id="ctr"></div>
+<div class="nav"><button id="prev" aria-label="назад">‹</button><button id="next" aria-label="вперёд">›</button></div>
+
+<script>
+var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+var i = 0;
+function show(n) {
+  i = (n + slides.length) % slides.length;
+  for (var k = 0; k < slides.length; k++) slides[k].classList.toggle('active', k === i);
+  document.getElementById('ctr').textContent = (i + 1) + ' / ' + slides.length;
+}
+var h = parseInt((location.hash || '').replace('#', ''), 10);
+show(isNaN(h) ? 0 : h - 1);
+document.getElementById('next').onclick = function () { show(i + 1); };
+document.getElementById('prev').onclick = function () { show(i - 1); };
+var x0 = null;
+document.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; }, { passive: true });
+document.addEventListener('touchend', function (e) {
+  if (x0 === null) return;
+  var dx = e.changedTouches[0].clientX - x0;
+  if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+  x0 = null;
+}, { passive: true });
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowRight' || e.key === ' ') show(i + 1);
+  if (e.key === 'ArrowLeft') show(i - 1);
+});
+</script>
+</body>
+</html>

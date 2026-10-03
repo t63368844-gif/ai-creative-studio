@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AI Creative Studio — Playground</title>
+<style>
+:root { --bg:#0a0a1a; --panel:#12122a; --text:#e0e0f0; --muted:#8888aa; --primary:#6c5ce7; --secondary:#a29bfe; --accent:#00cec9; --border:#2a2a4a; --radius:12px; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'SF Pro Text','Segoe UI',-apple-system,sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+header { padding:24px 32px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
+header h1 { font-size:1.5rem; background:linear-gradient(135deg,var(--primary),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+header .badge { font-size:0.7rem; padding:3px 10px; border-radius:20px; background:var(--primary)22; border:1px solid var(--primary)55; color:var(--secondary); }
+.main { display:flex; flex:1; overflow:hidden; }
+.controls { width:380px; padding:24px; border-right:1px solid var(--border); overflow-y:auto; display:flex; flex-direction:column; gap:20px; }
+.field { display:flex; flex-direction:column; gap:6px; }
+.field label { font-size:0.8rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; }
+.field textarea, .field select { padding:10px 14px; background:var(--panel); border:1px solid var(--border); border-radius:8px; color:var(--text); font-size:0.95rem; outline:none; font-family:inherit; min-height:60px; resize:vertical; }
+.field textarea:focus, .field select:focus { border-color:var(--primary); }
+.field-row { display:flex; gap:12px; }
+.field-row .field { flex:1; }
+.generate-btn { padding:14px; background:linear-gradient(135deg,var(--primary),var(--secondary)); border:none; border-radius:var(--radius); color:white; font-size:1rem; font-weight:600; cursor:pointer; }
+.generate-btn:disabled { opacity:0.5; cursor:not-allowed; }
+.progress { display:flex; flex-direction:column; gap:6px; max-height:280px; overflow-y:auto; }
+.progress-item { font-size:0.8rem; color:var(--muted); padding:4px 8px; border-radius:4px; background:var(--panel); display:flex; align-items:center; gap:8px; }
+.progress-item .dot { width:6px; height:6px; border-radius:50%; background:var(--accent); }
+.progress-item.active .dot { background:var(--primary); animation:pulse 1s infinite; }
+.progress-item.done .dot { background:var(--secondary); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.preview { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.preview-header { padding:12px 24px; border-bottom:1px solid var(--border); display:flex; gap:8px; }
+.tab { padding:6px 16px; border-radius:6px; cursor:pointer; font-size:0.85rem; color:var(--muted); border:1px solid transparent; }
+.tab.active { background:var(--panel); color:var(--text); border-color:var(--border); }
+.preview-frame-wrap { flex:1; overflow:hidden; position:relative; }
+#previewFrame { width:100%; height:100%; border:none; background:white; }
+.empty-state { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--muted); gap:12px; }
+.pdf-result { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:32px; }
+.pdf-result .icon { font-size:4rem; }
+.pdf-result .download-btn { padding:12px 28px; background:var(--accent); color:var(--bg); border:none; border-radius:var(--radius); font-size:1rem; font-weight:600; cursor:pointer; text-decoration:none; }
+.examples { display:flex; flex-wrap:wrap; gap:6px; }
+.example-chip { padding:4px 12px; border-radius:16px; background:var(--panel); border:1px solid var(--border); color:var(--muted); font-size:0.75rem; cursor:pointer; }
+.example-chip:hover { border-color:var(--primary); color:var(--text); }
+</style>
+</head>
+<body>
+<header>
+  <h1>🎨 AI Creative Studio</h1>
+  <span class="badge">Agents SDK</span>
+  <span class="badge">Workers AI</span>
+  <span class="badge">Browser Rendering</span>
+</header>
+<div class="main">
+  <div class="controls">
+    <div class="field">
+      <label>Brief (one sentence)</label>
+      <textarea id="topic" placeholder="Enter a one-sentence brief…">Маркетинговая стратегия для запуска нового мобильного приложения</textarea>
+    </div>
+    <div class="examples">
+      <span class="example-chip" onclick="setExample(this)">Маркетинговая стратегия для запуска нового мобильного приложения</span>
+      <span class="example-chip" onclick="setExample(this)">Introduction to machine learning for beginners</span>
+      <span class="example-chip" onclick="setExample(this)">Квантовые вычисления: будущее технологий</span>
+      <span class="example-chip" onclick="setExample(this)">Q3 2024 revenue analysis and growth projections</span>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Format</label>
+        <select id="format">
+          <option value="both">Both (HTML + PDF)</option>
+          <option value="html">HTML only</option>
+          <option value="pdf">PDF only</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Slides</label>
+        <select id="slideCount">
+          <option value="4">4</option>
+          <option value="6">6</option>
+          <option value="8" selected>8</option>
+          <option value="10">10</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Style</label>
+        <select id="style">
+          <option value="auto" selected>Auto (agent decides)</option>
+          <option value="corporate">Corporate</option>
+          <option value="glass">Glass</option>
+          <option value="punk">Punk</option>
+          <option value="book">Book</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Images</label>
+        <select id="images">
+          <option value="svg" selected>SVG (free)</option>
+          <option value="ai">AI raster (neuron cost)</option>
+        </select>
+      </div>
+    </div>
+    <button class="generate-btn" id="generateBtn" onclick="generate()">✨ Generate</button>
+    <div class="progress" id="progress"></div>
+  </div>
+  <div class="preview">
+    <div class="preview-header">
+      <div class="tab active" id="tab-html" onclick="switchTab('html')">HTML Preview</div>
+      <div class="tab" id="tab-pdf" onclick="switchTab('pdf')">PDF</div>
+    </div>
+    <div class="preview-frame-wrap" id="previewWrap">
+      <div class="empty-state" id="emptyState"><p>Enter a brief and click Generate</p></div>
+      <iframe id="previewFrame" style="display:none;"></iframe>
+      <div class="pdf-result" id="pdfResult" style="display:none;">
+        <div class="icon">📄</div>
+        <div class="info">
+          <p id="pdfInfo">PDF generated successfully</p>
+          <p id="pdfSize" style="font-size:0.85rem; margin-top:4px;"></p>
+        </div>
+        <a class="download-btn" id="pdfDownload" href="#">⬇ Download PDF</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+let currentTab='html', lastPdfBlobUrl=null, lastHtml=null;
+function setExample(el){document.getElementById('topic').value=el.textContent;}
+function switchTab(tab){
+  currentTab=tab;
+  document.getElementById('tab-html').classList.toggle('active',tab==='html');
+  document.getElementById('tab-pdf').classList.toggle('active',tab==='pdf');
+  if(tab==='html'){
+    document.getElementById('previewFrame').style.display=lastHtml?'block':'none';
+    document.getElementById('pdfResult').style.display='none';
+    document.getElementById('emptyState').style.display=lastHtml?'none':'flex';
+  } else {
+    document.getElementById('previewFrame').style.display='none';
+    document.getElementById('emptyState').style.display='none';
+    document.getElementById('pdfResult').style.display=lastPdfBlobUrl?'flex':'none';
+    if(!lastPdfBlobUrl) document.getElementById('emptyState').style.display='flex';
+  }
+}
+function addProgress(step,message,status){
+  const el=document.createElement('div');
+  el.className='progress-item '+(status||'active');
+  el.innerHTML=`<span class="dot"></span><span><strong>${step}</strong>: ${message}</span>`;
+  document.getElementById('progress').prepend(el);
+}
+async function generate(){
+  const topic=document.getElementById('topic').value.trim();
+  if(!topic) return;
+  const format=document.getElementById('format').value;
+  const slideCount=parseInt(document.getElementById('slideCount').value);
+  const style=document.getElementById('style').value;
+  const images=document.getElementById('images').value;
+  const btn=document.getElementById('generateBtn');
+  btn.disabled=true; btn.textContent='⏳ Generating…';
+  document.getElementById('progress').innerHTML='';
+  document.getElementById('emptyState').style.display='none';
+  document.getElementById('pdfResult').style.display='none';
+  addProgress('start','Starting pipeline…');
+
+  // WebSocket ТОЛЬКО для прогресса (не запускаем пайплайн через него!)
+  try {
+    const wsUrl=(location.protocol==='https:'?'wss://':'ws://')+location.host+'/agent/creative-studio/studio';
+    const ws=new WebSocket(wsUrl);
+    ws.onmessage=(event)=>{
+      try{
+        const data=JSON.parse(event.data);
+        if(data.type==='progress') addProgress(data.step,data.message,'active');
+      } catch {}
+    };
+    ws.onerror=()=>{}; // если WS не открывается — не страшно, HTTP придёт
+    setTimeout(()=>ws.close(), 60000); // закрыть через минуту
+  } catch {}
+
+  // ОДИН HTTP-запрос = ОДИН LLM-вызов
+  try {
+    if(format==='pdf'||format==='both'){
+      const pdfResp=await fetch('/pdf',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic,format:'pdf',slideCount,style,images})});
+      if(pdfResp.ok){
+        const blob=await pdfResp.blob();
+        if(lastPdfBlobUrl) URL.revokeObjectURL(lastPdfBlobUrl);
+        lastPdfBlobUrl=URL.createObjectURL(blob);
+        document.getElementById('pdfDownload').href=lastPdfBlobUrl;
+        document.getElementById('pdfSize').textContent=`${(blob.size/1024).toFixed(0)} KB`;
+        addProgress('pdf',`PDF ready (${(blob.size/1024).toFixed(0)} KB)`,'done');
+      } else {
+        const err=await pdfResp.json().catch(()=>({error:'PDF failed'}));
+        addProgress('error',err.error||err.details||'PDF failed','done');
+      }
+    }
+    if(format==='html'||format==='both'){
+      const htmlResp=await fetch('/html',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic,format:'html',slideCount,style,images})});
+      if(htmlResp.ok){
+        lastHtml=await htmlResp.text();
+        document.getElementById('previewFrame').srcdoc=lastHtml;
+        document.getElementById('previewFrame').style.display='block';
+        document.getElementById('emptyState').style.display='none';
+        addProgress('html','HTML preview ready','done');
+      }
+    }
+    if(format==='both'||format==='html') switchTab('html'); else switchTab('pdf');
+  } catch(e){
+    addProgress('error',e.message||'HTTP failed','done');
+  }
+  btn.disabled=false; btn.textContent='✨ Generate';
+}
+</script>
+</body>
+</html>

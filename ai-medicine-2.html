@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Искусственный интеллект в медицине</title>
+<style>
+:root {
+  --bg: #0a0a1a;
+  --text: #f0f0ff;
+  --primary: #6c5ce7;
+  --secondary: #a29bfe;
+  --accent: #00cec9;
+  --muted: #a0a0c0;
+  --radius: 16px;
+  --heading-font: 'SF Pro Display', 'Segoe UI', sans-serif;
+  --body-font: 'SF Pro Text', 'Segoe UI', sans-serif;
+  --heading-weight: 600;
+  --body-weight: 300;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body-font);
+  font-weight: var(--body-weight);
+  overflow-x: hidden;
+}
+
+/* ── Deck container ─────────────────────────────── */
+.deck {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* ── Slide ─────────────────────────────────────── */
+.slide {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #6c5ce722, #a29bfe22); border: 1.5px solid #6c5ce755;
+  padding: 48px 56px;
+  margin-bottom: 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  page-break-after: always;
+  overflow: hidden;
+}
+.slide-content {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 32px;
+}
+
+/* Split layout */
+.split-layout .slide-text { flex: 1; }
+.split-layout .slide-illustration-wrap { flex: 0 0 30%; display: flex; align-items: center; justify-content: center; }
+
+/* Centered layout */
+.centered-layout { flex-direction: column; text-align: center; gap: 16px; }
+.centered-layout .slide-illustration-wrap { max-width: 160px; }
+
+/* Fullbleed layout */
+.fullbleed-layout { flex-direction: row; }
+.fullbleed-layout .slide-illustration-wrap { flex: 0 0 35%; }
+.fullbleed-layout .slide-text { flex: 1; }
+
+/* Chart layout */
+.chart-layout .slide-text { flex: 1; }
+.chart-layout .slide-visual { flex: 0 0 45%; display: flex; align-items: center; justify-content: center; }
+
+/* ── Typography ─────────────────────────────────── */
+h2 {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.bullets {
+  list-style: none;
+  padding: 0;
+}
+.bullets li {
+  font-size: 1rem;
+  line-height: 1.6;
+  padding-left: 20px;
+  position: relative;
+  color: var(--text);
+}
+.bullets li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* ── Illustration ───────────────────────────────── */
+.slide-illustration {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+}
+
+/* ── Chart ──────────────────────────────────────── */
+.slide-chart {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+}
+
+/* ── Footer ─────────────────────────────────────── */
+.slide-footer {
+  position: absolute;
+  bottom: 16px;
+  left: 56px;
+  right: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  border-top: 1px solid #a0a0c033;
+  padding-top: 8px;
+}
+.footer-brand { text-transform: uppercase; letter-spacing: 1px; }
+.footer-page { font-variant-numeric: tabular-nums; }
+
+/* ── Speaker notes (hidden in view, shown in print notes) ── */
+.speaker-notes { display: none; }
+
+/* ── Title slide ────────────────────────────────── */
+.title-slide {
+  text-align: center;
+  justify-content: center;
+}
+
+/* ── Toolbar ────────────────────────────────────── */
+.toolbar {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+.toolbar button {
+  padding: 8px 16px;
+  border: 1.5px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--primary);
+  font-family: var(--body-font);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.toolbar button:hover {
+  background: var(--primary);
+  color: var(--bg);
+}
+
+/* ── Overview mode ──────────────────────────────── */
+.overview .slide {
+  transform: scale(0.28);
+  margin-bottom: -300px;
+  display: inline-block;
+  width: 45%;
+  margin: 8px;
+  vertical-align: top;
+}
+.overview .slide:hover {
+  transform: scale(0.3);
+}
+
+/* ── Print / PDF ────────────────────────────────── */
+@media print {
+  @page {
+    size: 1280px 720px;
+    margin: 0;
+  }
+  .toolbar { display: none; }
+  .deck { padding: 0; max-width: none; }
+  .slide {
+    width: 1280px;
+    height: 720px;
+    margin: 0;
+    border-radius: 0;
+    page-break-after: always;
+    break-after: page;
+  }
+  .slide:last-child {
+    page-break-after: auto;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <button onclick="window.print()" title="Export PDF via browser print">📄 Export PDF</button>
+  <button onclick="downloadHtml()" title="Download this HTML file">⬇ Download HTML</button>
+  <button onclick="toggleOverview()" title="Toggle overview (ESC)">☰ Overview</button>
+</div>
+
+<div class="deck" id="deck">
+  <!-- Title slide -->
+  <section class="slide title-slide">
+    <div>
+      <h1 style="font-family: var(--heading-font); font-weight: var(--heading-weight); font-size: 2.8rem; color: var(--primary); margin-bottom: 16px;">Искусственный интеллект в медицине</h1>
+      <p style="font-size: 1.3rem; color: var(--muted);">Перспективы и возможности</p>
+    </div>
+    <footer class="slide-footer">
+      <span class="footer-brand">glass</span>
+      <span class="footer-page">1 / 5</span>
+    </footer>
+  </section>
+
+  
+    <section class="slide" data-index="0">
+      
+      <div class="slide-content centered-layout">
+        <div class="slide-illustration-wrap"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="slide-illustration" data-keyword="brain" preserveAspectRatio="xMidYMid meet">
+    <path d="M100 40 C70 40, 55 60, 55 85 C45 90, 45 115, 60 120 C60 140, 80 150, 100 145 L100 40 Z"
+      fill="#6c5ce7" stroke="#f0f0ff" stroke-width="2"/>
+    <path d="M100 40 C130 40, 145 60, 145 85 C155 90, 155 115, 140 120 C140 140, 120 150, 100 145 L100 40 Z"
+      fill="#a29bfe" stroke="#f0f0ff" stroke-width="2"/>
+    <path d="M70 70 Q80 80, 75 95 M130 70 Q120 80, 125 95" fill="none" stroke="#00cec9" stroke-width="1.5"/>
+  </svg></div>
+        <h2>Введение</h2>
+        
+        <ul class="bullets">
+          <li>ИИ в медицине</li>
+<li>Новые возможности</li>
+<li>Улучшение лечения</li>
+        </ul>
+      </div>
+      <aside class="speaker-notes" data-notes="Краткий обзор темы"></aside>
+      <footer class="slide-footer">
+        <span class="footer-brand">glass</span>
+        <span class="footer-page">1 / 4</span>
+      </footer>
+    </section>
+
+    <section class="slide" data-index="1">
+      
+      <div class="slide-content chart-layout">
+        <div class="slide-text">
+          <h2>Применение ИИ</h2>
+          
+          <ul class="bullets">
+            <li>Диагностика заболеваний</li>
+<li>Разработка лекарств</li>
+<li>Анализ данных</li>
+          </ul>
+        </div>
+        <div class="slide-visual">
+          <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" class="slide-chart" preserveAspectRatio="xMidYMid meet">
+    <text x="240" y="18" text-anchor="middle" font-size="13" font-weight="bold" fill="#f0f0ff">Применение ИИ в медицине</text>
+    <line x1="50" y1="250" x2="460" y2="250" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="208" x2="460" y2="208" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="166" x2="460" y2="166" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="124" x2="460" y2="124" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="82" x2="460" y2="82" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="40" x2="460" y2="40" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/>
+    <text x="42" y="254" text-anchor="end" font-size="10" fill="#a0a0c0">0</text><text x="42" y="212" text-anchor="end" font-size="10" fill="#a0a0c0">12</text><text x="42" y="170" text-anchor="end" font-size="10" fill="#a0a0c0">24</text><text x="42" y="128" text-anchor="end" font-size="10" fill="#a0a0c0">36</text><text x="42" y="86" text-anchor="end" font-size="10" fill="#a0a0c0">48</text><text x="42" y="44" text-anchor="end" font-size="10" fill="#a0a0c0">60</text>
+    <line x1="50" y1="250" x2="460" y2="250" stroke="#f0f0ff" stroke-width="1.5"/>
+    <line x1="50" y1="40" x2="50" y2="250" stroke="#f0f0ff" stroke-width="1.5"/>
+    <rect x="70.5" y="40" width="95.66666666666666" height="210" fill="#6c5ce7" rx="2"/><rect x="207.16666666666666" y="180" width="95.66666666666666" height="70" fill="#6c5ce7" rx="2"/><rect x="343.8333333333333" y="180" width="95.66666666666666" height="70" fill="#6c5ce7" rx="2"/>
+    <text x="118.33333333333333" y="36" text-anchor="middle" font-size="9" fill="#f0f0ff">60</text><text x="255" y="176" text-anchor="middle" font-size="9" fill="#f0f0ff">20</text><text x="391.66666666666663" y="176" text-anchor="middle" font-size="9" fill="#f0f0ff">20</text>
+    <text x="118.33333333333333" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">Диагностика</text><text x="255" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">Лекарства</text><text x="391.66666666666663" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">Анализ</text>
+    <rect x="50" y="17" width="10" height="10" fill="#6c5ce7"/><text x="64" y="26" font-size="10" fill="#f0f0ff">Применение</text>
+  </svg>
+        </div>
+      </div>
+      
+      <footer class="slide-footer">
+        <span class="footer-brand">glass</span>
+        <span class="footer-page">2 / 4</span>
+      </footer>
+    </section>
+
+    <section class="slide" data-index="2">
+      
+      <div class="slide-content chart-layout">
+        <div class="slide-text">
+          <h2>Перспективы развития</h2>
+          
+          <ul class="bullets">
+            <li>Улучшение качества</li>
+<li>Сокращение затрат</li>
+<li>Рост эффективности</li>
+          </ul>
+        </div>
+        <div class="slide-visual">
+          <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" class="slide-chart" preserveAspectRatio="xMidYMid meet">
+    <text x="240" y="18" text-anchor="middle" font-size="13" font-weight="bold" fill="#f0f0ff">Рост эффективности</text>
+    <line x1="50" y1="250" x2="460" y2="250" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="208" x2="460" y2="208" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="166" x2="460" y2="166" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="124" x2="460" y2="124" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="82" x2="460" y2="82" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="40" x2="460" y2="40" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/>
+    <text x="42" y="254" text-anchor="end" font-size="10" fill="#a0a0c0">0</text><text x="42" y="212" text-anchor="end" font-size="10" fill="#a0a0c0">18</text><text x="42" y="170" text-anchor="end" font-size="10" fill="#a0a0c0">36</text><text x="42" y="128" text-anchor="end" font-size="10" fill="#a0a0c0">54</text><text x="42" y="86" text-anchor="end" font-size="10" fill="#a0a0c0">72</text><text x="42" y="44" text-anchor="end" font-size="10" fill="#a0a0c0">90</text>
+    <rect x="50" y="17" width="10" height="10" fill="#6c5ce7"/><text x="64" y="26" font-size="10" fill="#f0f0ff">Эффективность</text>
+    <line x1="50" y1="250" x2="460" y2="250" stroke="#f0f0ff" stroke-width="1.5"/>
+    <line x1="50" y1="40" x2="50" y2="250" stroke="#f0f0ff" stroke-width="1.5"/>
+    <path d="M50 133.33333333333331 L255 86.66666666666666 L460 40 " fill="none" stroke="#6c5ce7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="50" cy="133.33333333333331" r="3.5" fill="#6c5ce7" stroke="#0a0a1a" stroke-width="1"/><circle cx="255" cy="86.66666666666666" r="3.5" fill="#6c5ce7" stroke="#0a0a1a" stroke-width="1"/><circle cx="460" cy="40" r="3.5" fill="#6c5ce7" stroke="#0a0a1a" stroke-width="1"/>
+    <text x="50" y="125.33333333333331" text-anchor="middle" font-size="9" fill="#f0f0ff">50</text><text x="255" y="78.66666666666666" text-anchor="middle" font-size="9" fill="#f0f0ff">70</text><text x="460" y="32" text-anchor="middle" font-size="9" fill="#f0f0ff">90</text>
+    <text x="50" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">2020</text><text x="255" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">2025</text><text x="460" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">2030</text>
+  </svg>
+        </div>
+      </div>
+      <aside class="speaker-notes" data-notes="Обсуждение будущих возможностей"></aside>
+      <footer class="slide-footer">
+        <span class="footer-brand">glass</span>
+        <span class="footer-page">3 / 4</span>
+      </footer>
+    </section>
+
+    <section class="slide" data-index="3">
+      
+      <div class="slide-content chart-layout">
+        <div class="slide-text">
+          <h2>Заключение</h2>
+          
+          <ul class="bullets">
+            <li>ИИ меняет медицину</li>
+<li>Новые горизонты</li>
+<li>Будущее уже здесь</li>
+          </ul>
+        </div>
+        <div class="slide-visual">
+          <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" class="slide-chart" preserveAspectRatio="xMidYMid meet">
+    <text x="240" y="18" text-anchor="middle" font-size="13" font-weight="bold" fill="#f0f0ff">Влияние ИИ на медицину</text>
+    <path d="M160 160 L160 70 A90 90 0 1 1 74.40491353343617 132.18847050625476 Z" fill="#6c5ce7" stroke="#0a0a1a" stroke-width="1.5"/><path d="M160 160 L74.40491353343617 132.18847050625476 A90 90 0 0 1 107.0993272936774 87.18847050625475 Z" fill="#a29bfe" stroke="#0a0a1a" stroke-width="1.5"/><path d="M160 160 L107.0993272936774 87.18847050625475 A90 90 0 0 1 159.99999999999997 70 Z" fill="#00cec9" stroke="#0a0a1a" stroke-width="1.5"/>
+    <text x="194.38543725910966" y="211.32749417093441" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a0a1a">80%</text><text x="112.67250582906557" y="129.61456274089034" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a0a1a">10%</text><text x="141.92250582906556" y="108.36319379673353" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a0a1a">10%</text>
+    <rect x="290" y="60" width="12" height="12" fill="#6c5ce7"/><text x="310" y="70" font-size="11" fill="#f0f0ff">Положительное: 80</text><rect x="290" y="82" width="12" height="12" fill="#a29bfe"/><text x="310" y="92" font-size="11" fill="#f0f0ff">Отрицательное: 10</text><rect x="290" y="104" width="12" height="12" fill="#00cec9"/><text x="310" y="114" font-size="11" fill="#f0f0ff">Нейтральное: 10</text>
+  </svg>
+        </div>
+      </div>
+      
+      <footer class="slide-footer">
+        <span class="footer-brand">glass</span>
+        <span class="footer-page">4 / 4</span>
+      </footer>
+    </section>
+</div>
+
+<script>
+// ── Keyboard navigation ──────────────────────────
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+
+function scrollToSlide(index) {
+  if (index < 0 || index >= totalSlides) return;
+  currentSlide = index;
+  slides[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+    e.preventDefault();
+    scrollToSlide(currentSlide + 1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+    e.preventDefault();
+    scrollToSlide(currentSlide - 1);
+  } else if (e.key === 'Home') {
+    e.preventDefault();
+    scrollToSlide(0);
+  } else if (e.key === 'End') {
+    e.preventDefault();
+    scrollToSlide(totalSlides - 1);
+  } else if (e.key === 'Escape') {
+    e.preventDefault();
+    toggleOverview();
+  }
+});
+
+// Track scroll position
+document.addEventListener('scroll', function() {
+  const scrollTop = window.scrollY;
+  for (let i = 0; i < slides.length; i++) {
+    const rect = slides[i].getBoundingClientRect();
+    if (rect.top >= -100 && rect.top <= window.innerHeight / 2) {
+      currentSlide = i;
+      break;
+    }
+  }
+});
+
+// ── Overview mode ────────────────────────────────
+let overviewMode = false;
+function toggleOverview() {
+  overviewMode = !overviewMode;
+  document.body.classList.toggle('overview', overviewMode);
+  if (!overviewMode) {
+    scrollToSlide(currentSlide);
+  }
+}
+
+// ── Download HTML ────────────────────────────────
+function downloadHtml() {
+  const html = document.documentElement.outerHTML;
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = document.title.replace(/[^a-z0-9]/gi, '_') + '.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

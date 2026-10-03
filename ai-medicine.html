@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Искусственный интеллект в медицине</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"/>
+<style>
+:root {
+  --bg: #0a0a1a; --text: #f0f0ff; --primary: #6c5ce7;
+  --secondary: #a29bfe; --accent: #00cec9; --muted: #a0a0c0;
+}
+html, body { background: var(--bg); color: var(--text); font-family: 'SF Pro Text', 'Segoe UI', sans-serif; font-weight: 300; }
+.reveal { font-family: 'SF Pro Text', 'Segoe UI', sans-serif; }
+.reveal .slides { text-align: left; }
+.reveal .slides section.slide {
+  background: linear-gradient(135deg, #6c5ce722, #a29bfe22); border: 1.5px solid #6c5ce755;
+  border-radius: 16px;
+  padding: 56px 72px 64px;
+  box-sizing: border-box;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.reveal h1, .reveal h2 { font-family: 'SF Pro Display', 'Segoe UI', sans-serif; font-weight: 600; color: var(--primary); }
+.reveal h2 { font-size: 44px; line-height: 1.15; margin-bottom: 10px; }
+.subtitle { font-size: 24px; color: var(--muted); margin-bottom: 14px; }
+.bullets { list-style: none; margin: 16px 0 0; }
+.bullets li { font-size: 26px; line-height: 1.5; padding-left: 36px; position: relative; color: var(--text); margin-bottom: 10px; }
+.bullets li::before { content: "▸"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+.row { display: flex; gap: 44px; align-items: center; height: 100%; }
+.col.text { flex: 1; min-width: 0; }
+.col.visual { flex: 0 0 34%; display: flex; align-items: center; justify-content: center; }
+.col.visual.big { flex: 0 0 40%; }
+.centered { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; height: 100%; gap: 12px; }
+.centered .bullets { text-align: left; }
+.slide-illustration { width: 100%; max-height: 340px; }
+.centered .slide-illustration { max-height: 200px; }
+.slide-chart { width: 100%; max-height: 430px; }
+.slide-footer {
+  position: absolute; left: 72px; right: 72px; bottom: 22px;
+  display: flex; justify-content: space-between;
+  font-size: 15px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase;
+  border-top: 1px solid #a0a0c033; padding-top: 10px;
+}
+.title-slide { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.title-slide h1 { font-size: 62px; margin-bottom: 14px; }
+.title-slide p { font-size: 28px; color: var(--muted); }
+.toolbar { position: fixed; top: 12px; right: 12px; z-index: 100; display: flex; gap: 8px; }
+.toolbar button {
+  padding: 8px 16px; border: 1.5px solid var(--primary); border-radius: 16px;
+  background: var(--bg); color: var(--primary); font-size: 14px; cursor: pointer;
+}
+.toolbar button:hover { background: var(--primary); color: var(--bg); }
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .toolbar { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <button onclick="exportPdf()">📄 Export PDF</button>
+  <button onclick="downloadHtml()">⬇ Download HTML</button>
+  <button onclick="Reveal.toggleOverview()">☰ Overview</button>
+</div>
+<div class="reveal"><div class="slides">
+  <section class="slide title-slide">
+    <h1>Искусственный интеллект в медицине</h1>
+    <p>Новые возможности для здравоохранения</p>
+    <footer class="slide-footer"><span>glass</span><span>1 / 5</span></footer>
+  </section>
+  
+    <section class="slide">
+      <div class="centered"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="slide-illustration" data-keyword="brain" preserveAspectRatio="xMidYMid meet">
+    <path d="M100 40 C70 40, 55 60, 55 85 C45 90, 45 115, 60 120 C60 140, 80 150, 100 145 L100 40 Z"
+      fill="#6c5ce7" stroke="#f0f0ff" stroke-width="2"/>
+    <path d="M100 40 C130 40, 145 60, 145 85 C155 90, 155 115, 140 120 C140 140, 120 150, 100 145 L100 40 Z"
+      fill="#a29bfe" stroke="#f0f0ff" stroke-width="2"/>
+    <path d="M70 70 Q80 80, 75 95 M130 70 Q120 80, 125 95" fill="none" stroke="#00cec9" stroke-width="1.5"/>
+  </svg><h2>Введение</h2><ul class="bullets"><li>ИИ в медицине</li><li>Новые технологии</li><li>Улучшение лечения</li></ul></div>
+      <footer class="slide-footer"><span>glass</span><span>2 / 5</span></footer>
+    </section>
+
+    <section class="slide">
+      <div class="row"><div class="col text"><h2>Применение ИИ</h2><ul class="bullets"><li>Диагностика болезней</li><li>Разработка лекарств</li><li>Анализ данных</li></ul></div><div class="col visual"><svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" class="slide-chart" preserveAspectRatio="xMidYMid meet">
+    <text x="240" y="18" text-anchor="middle" font-size="13" font-weight="bold" fill="#f0f0ff">Эффективность ИИ в диагностике</text>
+    <line x1="50" y1="250" x2="460" y2="250" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="208" x2="460" y2="208" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="166" x2="460" y2="166" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="124" x2="460" y2="124" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="82" x2="460" y2="82" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="40" x2="460" y2="40" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/>
+    <text x="42" y="254" text-anchor="end" font-size="10" fill="#a0a0c0">0</text><text x="42" y="212" text-anchor="end" font-size="10" fill="#a0a0c0">18</text><text x="42" y="170" text-anchor="end" font-size="10" fill="#a0a0c0">36</text><text x="42" y="128" text-anchor="end" font-size="10" fill="#a0a0c0">54</text><text x="42" y="86" text-anchor="end" font-size="10" fill="#a0a0c0">72</text><text x="42" y="44" text-anchor="end" font-size="10" fill="#a0a0c0">90</text>
+    <line x1="50" y1="250" x2="460" y2="250" stroke="#f0f0ff" stroke-width="1.5"/>
+    <line x1="50" y1="40" x2="50" y2="250" stroke="#f0f0ff" stroke-width="1.5"/>
+    <rect x="70.5" y="63.33333333333334" width="95.66666666666666" height="186.66666666666666" fill="#6c5ce7" rx="2"/><rect x="207.16666666666666" y="51.666666666666686" width="95.66666666666666" height="198.33333333333331" fill="#6c5ce7" rx="2"/><rect x="343.8333333333333" y="40" width="95.66666666666666" height="210" fill="#6c5ce7" rx="2"/>
+    <text x="118.33333333333333" y="59.33333333333334" text-anchor="middle" font-size="9" fill="#f0f0ff">80</text><text x="255" y="47.666666666666686" text-anchor="middle" font-size="9" fill="#f0f0ff">85</text><text x="391.66666666666663" y="36" text-anchor="middle" font-size="9" fill="#f0f0ff">90</text>
+    <text x="118.33333333333333" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">2018</text><text x="255" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">2019</text><text x="391.66666666666663" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">2020</text>
+    <rect x="50" y="17" width="10" height="10" fill="#6c5ce7"/><text x="64" y="26" font-size="10" fill="#f0f0ff">Точность диагноза</text>
+  </svg></div></div>
+      <footer class="slide-footer"><span>glass</span><span>3 / 5</span></footer>
+    </section>
+
+    <section class="slide">
+      <div class="row"><div class="col text"><h2>Перспективы развития</h2><ul class="bullets"><li>Развитие телемедицины</li><li>Использование ИИ в хирургии</li><li>Повышение качества лечения</li></ul></div><div class="col visual"><svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" class="slide-chart" preserveAspectRatio="xMidYMid meet">
+    <text x="240" y="18" text-anchor="middle" font-size="13" font-weight="bold" fill="#f0f0ff">Рост использования ИИ в медицине</text>
+    <line x1="50" y1="250" x2="460" y2="250" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="208" x2="460" y2="208" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="166" x2="460" y2="166" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="124" x2="460" y2="124" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="82" x2="460" y2="82" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="40" x2="460" y2="40" stroke="#a0a0c0" stroke-width="0.5" opacity="0.3"/>
+    <text x="42" y="254" text-anchor="end" font-size="10" fill="#a0a0c0">0</text><text x="42" y="212" text-anchor="end" font-size="10" fill="#a0a0c0">6</text><text x="42" y="170" text-anchor="end" font-size="10" fill="#a0a0c0">12</text><text x="42" y="128" text-anchor="end" font-size="10" fill="#a0a0c0">18</text><text x="42" y="86" text-anchor="end" font-size="10" fill="#a0a0c0">24</text><text x="42" y="44" text-anchor="end" font-size="10" fill="#a0a0c0">30</text>
+    <rect x="50" y="17" width="10" height="10" fill="#6c5ce7"/><text x="64" y="26" font-size="10" fill="#f0f0ff">Доля ИИ в медицине</text>
+    <line x1="50" y1="250" x2="460" y2="250" stroke="#f0f0ff" stroke-width="1.5"/>
+    <line x1="50" y1="40" x2="50" y2="250" stroke="#f0f0ff" stroke-width="1.5"/>
+    <path d="M50 180 L255 110 L460 40 " fill="none" stroke="#6c5ce7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="50" cy="180" r="3.5" fill="#6c5ce7" stroke="#0a0a1a" stroke-width="1"/><circle cx="255" cy="110" r="3.5" fill="#6c5ce7" stroke="#0a0a1a" stroke-width="1"/><circle cx="460" cy="40" r="3.5" fill="#6c5ce7" stroke="#0a0a1a" stroke-width="1"/>
+    <text x="50" y="172" text-anchor="middle" font-size="9" fill="#f0f0ff">10</text><text x="255" y="102" text-anchor="middle" font-size="9" fill="#f0f0ff">20</text><text x="460" y="32" text-anchor="middle" font-size="9" fill="#f0f0ff">30</text>
+    <text x="50" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">2020</text><text x="255" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">2022</text><text x="460" y="268" text-anchor="middle" font-size="10" fill="#f0f0ff">2025</text>
+  </svg></div></div>
+      <footer class="slide-footer"><span>glass</span><span>4 / 5</span></footer>
+    </section>
+
+    <section class="slide">
+      <div class="row"><div class="col text"><h2>Заключение</h2><ul class="bullets"><li>ИИ улучшает медицину</li><li>Новые возможности для врачей</li><li>Будущее здравоохранения</li></ul></div><div class="col visual"><svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" class="slide-chart" preserveAspectRatio="xMidYMid meet">
+    <text x="240" y="18" text-anchor="middle" font-size="13" font-weight="bold" fill="#f0f0ff">Вклад ИИ в медицину</text>
+    <path d="M160 160 L160 70 A90 90 0 0 1 212.90067270632258 232.81152949374527 Z" fill="#6c5ce7" stroke="#0a0a1a" stroke-width="1.5"/><path d="M160 160 L212.90067270632258 232.81152949374527 A90 90 0 0 1 74.40491353343619 187.81152949374527 Z" fill="#a29bfe" stroke="#0a0a1a" stroke-width="1.5"/><path d="M160 160 L74.40491353343619 187.81152949374527 A90 90 0 0 1 159.99999999999997 70 Z" fill="#00cec9" stroke="#0a0a1a" stroke-width="1.5"/>
+    <text x="215.63680620326647" y="145.92250582906559" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a0a1a">40%</text><text x="141.92250582906559" y="219.63680620326647" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a0a1a">30%</text><text x="112.67250582906557" y="129.61456274089034" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a0a1a">30%</text>
+    <rect x="290" y="60" width="12" height="12" fill="#6c5ce7"/><text x="310" y="70" font-size="11" fill="#f0f0ff">Диагностика: 40</text><rect x="290" y="82" width="12" height="12" fill="#a29bfe"/><text x="310" y="92" font-size="11" fill="#f0f0ff">Лечение: 30</text><rect x="290" y="104" width="12" height="12" fill="#00cec9"/><text x="310" y="114" font-size="11" fill="#f0f0ff">Профилактика: 30</text>
+  </svg></div></div>
+      <footer class="slide-footer"><span>glass</span><span>5 / 5</span></footer>
+    </section>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  width: 1280, height: 720,
+  margin: 0.02, minScale: 0.15, maxScale: 2.5,
+  controls: true, progress: true, center: false, hash: true,
+  transition: "slide",
+});
+function downloadHtml() {
+  const blob = new Blob([document.documentElement.outerHTML], { type: "text/html" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = document.title.replace(/[^a-z0-9]+/gi, "_") + ".html";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function exportPdf() {
+  if (!location.search.includes("print-pdf")) location.search = "?print-pdf";
+  else window.print();
+}
+if (location.search.includes("print-pdf")) {
+  window.addEventListener("load", () => setTimeout(() => window.print(), 600));
+}
+</script>
+</body>
+</html>
